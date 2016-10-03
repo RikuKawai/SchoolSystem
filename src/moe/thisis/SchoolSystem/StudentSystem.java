@@ -6,15 +6,21 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class StudentSystem {
-	
+	/**
+	 * StudentSystem.java
+	 * Student Database System
+	 * @author Quinlan McNellen
+	 * @version 0.2.1
+	 * @date 10/02/2016
+	 */
 	static ArrayList<Student> studRecs = new ArrayList<Student>();
+	static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 	static final String VERSION = "0.2";
 	
 	public static void main(String[] args) throws IOException {
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		
+				
 		System.out.println("StudentSystem v" + VERSION);
-		System.out.println("Quinlan McNellen, ICS4U, 2016");
+		System.out.println("Quinlan McNellen, ICS4U, 2016\n");
 		
 		boolean running = true;
 		
@@ -24,7 +30,7 @@ public class StudentSystem {
 			
 			switch (command.toLowerCase()) {
 			case "h":
-				System.out.println("1: Add new record\n2: Print a record\n3: Print all records\n4: null\n5: null\n6: null\n7: null\n8: null\n9: null\n10: Quit\nh: Show this screen");
+				System.out.println("1: Add new record\n2: Print a record\n3: Print all records\n4: Remove a record\n5: null\n6: null\n7: null\n8: null\n9: null\n10: Quit\nh: Show this screen");
 				break;
 			case "1":
 				createRecord();
@@ -33,8 +39,12 @@ public class StudentSystem {
 				System.out.print("Enter record number: ");
 				int i = Integer.parseInt(in.readLine());
 				printRecord(i);
+				break;
 			case "3":
 				printAllRecords();
+				break;
+			case "4":
+				removeRecord();
 				break;
 			case "10":
 				System.out.println("Quitting...");
@@ -47,6 +57,10 @@ public class StudentSystem {
 		}
 	}
 	
+	/**
+	 * Print a specified student record
+	 * @param i index of the record to print
+	 */
 	public static void printRecord(int i) {
 		try {
 			Student tempRecord = studRecs.get(i);
@@ -63,11 +77,20 @@ public class StudentSystem {
 			System.out.println("Invalid student!");
 		}
 	}
+	
+	/**
+	 * Print all student records
+	 */
 	public static void printAllRecords() {
 		for (int i = 0; i<studRecs.size(); i++) {
 			printRecord(i);
 		}
 	}
+	
+	/**
+	 * Create and append a new student record
+	 * @throws IOException
+	 */
 	public static void createRecord() throws IOException {
 		studRecs.add(new Student());
 		int i = studRecs.size() - 1;
@@ -82,6 +105,35 @@ public class StudentSystem {
 		tempRecord.setPhoneNumber(StudentInput.phoneNumber());
 		tempRecord.setBirthDate(StudentInput.birthDate());
 		System.out.println("Student " + i + " Created!");
+	}
+	
+	/**
+	 * Remove a specified student record
+	 * @throws NumberFormatException
+	 * @throws IOException
+	 */
+	public static void removeRecord() throws NumberFormatException, IOException {
+		System.out.print("Enter record number: ");
+		int i = Integer.parseInt(in.readLine());
+		System.out.print("Are you SURE you want to delete record " + i + "? (y/n): ");
+		switch (in.readLine().toLowerCase()) {
+		case "y":
+			try {
+				studRecs.remove(i);
+				System.out.println("Record " + i + " removed, records following it have been shifted down 1!");
+				break;
+			} catch (IndexOutOfBoundsException e) {
+				System.out.println("Invalid student! Aborting!");
+				break;
+			}
+		case "n":
+			System.out.println("Aborting!");
+			break;
+		default:
+			System.out.println("Invalid input, aborting!");
+			break;
+		}
+		return;
 	}
 
 }
