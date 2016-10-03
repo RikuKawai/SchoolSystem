@@ -1,6 +1,13 @@
 package moe.thisis.SchoolSystem;
 
 public class Student {
+	/**
+	 * Student.java
+	 * Student Object
+	 * @author Quinlan McNellen
+	 * @version 1.0
+	 * @date 10/02/2016
+	 */
 	private String firstName;
 	private String lastName;
 	private String streetAddress;
