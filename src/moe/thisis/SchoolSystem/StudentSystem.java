@@ -4,15 +4,18 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class StudentSystem {
 	
 	static ArrayList<Student> studRecs = new ArrayList<Student>();
+	static final String VERSION = "0.2";
 	
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		
+		System.out.println("StudentSystem v" + VERSION);
+		System.out.println("Quinlan McNellen, ICS4U, 2016");
+		
 		boolean running = true;
 		
 		while(running) {
@@ -29,10 +32,7 @@ public class StudentSystem {
 			case "2":
 				System.out.print("Enter record number: ");
 				int i = Integer.parseInt(in.readLine());
-				if (printRecord(i) == 1) {
-					System.out.println("Invalid Student!");
-					break;
-				}
+				printRecord(i);
 			case "3":
 				printAllRecords();
 				break;
@@ -47,7 +47,7 @@ public class StudentSystem {
 		}
 	}
 	
-	public static int printRecord(int i) {
+	public static void printRecord(int i) {
 		try {
 			Student tempRecord = studRecs.get(i);
 			System.out.println("Printing information for student " + i);
@@ -59,9 +59,8 @@ public class StudentSystem {
 			System.out.println("Postal Code: " + tempRecord.getPostalCode());
 			System.out.println("Phone Number: " + tempRecord.getPhoneNumber());
 			System.out.println("Birth Date: " + tempRecord.getBirthDate());
-			return 0;
 		} catch (IndexOutOfBoundsException e) {
-			return 1;
+			System.out.println("Invalid student!");
 		}
 	}
 	public static void printAllRecords() {
@@ -72,25 +71,16 @@ public class StudentSystem {
 	public static void createRecord() throws IOException {
 		studRecs.add(new Student());
 		int i = studRecs.size() - 1;
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		Student tempRecord = studRecs.get(i);
 		System.out.println("Creating Student " + i);
-		System.out.print("Enter First Name: ");
-		tempRecord.setFirstName(in.readLine());
-		System.out.print("Enter Last Name: ");
-		tempRecord.setLastName(in.readLine());
-		System.out.print("Enter Street Address: ");
-		tempRecord.setStreetAddress(in.readLine());
-		System.out.print("Enter City: ");
-		tempRecord.setCity(in.readLine());
-		System.out.print("Enter Province: ");
-		tempRecord.setProvince(in.readLine());
-		System.out.print("Enter Postal Code: ");
-		tempRecord.setPostalCode(in.readLine());
-		System.out.print("Enter Phone Number: ");
-		tempRecord.setPhoneNumber(in.readLine());
-		System.out.print("Enter Birth Date: ");
-		tempRecord.setBirthDate(in.readLine());
+		tempRecord.setFirstName(StudentInput.firstName());
+		tempRecord.setLastName(StudentInput.lastName());
+		tempRecord.setStreetAddress(StudentInput.streetAddress());
+		tempRecord.setCity(StudentInput.city());
+		tempRecord.setProvince(StudentInput.province());
+		tempRecord.setPostalCode(StudentInput.postalCode());
+		tempRecord.setPhoneNumber(StudentInput.phoneNumber());
+		tempRecord.setBirthDate(StudentInput.birthDate());
 		System.out.println("Student " + i + " Created!");
 	}
 
