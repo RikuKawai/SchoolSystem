@@ -145,7 +145,7 @@ public class StudentInput {
 				return postalCode;
 			case 7: //replace a dash or other character with a space
 				if (postalCode.charAt(3) != ' ') {
-					postalCode = postalCode.substring(0, 4) + ' ' + postalCode.substring(5);
+					postalCode = postalCode.substring(0, 3) + ' ' + postalCode.substring(4);
 					valid = true;
 					return postalCode;
 				}
