@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import moe.thisis.SchoolSystem.Student;
+
 public class StudentInput {
 	/**
 	 * StudentInput.java
@@ -13,7 +15,25 @@ public class StudentInput {
 	 * @date 10/02/2016
 	 */
 	static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-
+	
+	private Student student;
+	
+	public void setStudent(Student student) throws IOException {
+		this.student = student;
+		addStudent();
+	}
+	
+	void addStudent() throws IOException {
+		student.setFirstName(firstName());
+		student.setLastName(lastName());
+		student.setStreetAddress(streetAddress());
+		student.setCity(city());
+		student.setProvince(province());
+		student.setPostalCode(postalCode());
+		student.setPhoneNumber(phoneNumber());
+		student.setBirthDate(birthDate());
+	}
+	
 	/**
 	 * Prompt for and validate first name
 	 * @return validated first name
