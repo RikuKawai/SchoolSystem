@@ -1,9 +1,16 @@
 package moe.thisis.SchoolSystem;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+
+import moe.thisis.SchoolSystem.StudRecsWrapper;
 
 public class StudentSystem {
 	/**
@@ -16,6 +23,7 @@ public class StudentSystem {
 	static ArrayList<Student> studRecs = new ArrayList<Student>();
 	static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 	static final String VERSION = "0.2";
+	static File file = new File("studrecs.xml");
 	
 	public static void main(String[] args) throws IOException {
 				
@@ -30,7 +38,7 @@ public class StudentSystem {
 			
 			switch (command.toLowerCase()) {
 			case "h":
-				System.out.println("1: Add new record\n2: Print a record\n3: Print all records\n4: Remove a record\n5: null\n6: null\n7: null\n8: null\n9: null\n10: Quit\nh: Show this screen");
+				System.out.println("1: Add new record\n2: Print a record by indice\n3: Print all records\n4: Remove a record by indice\n5: null\n6: null\n7: null\ns: Save Records\n9: null\nq: Quit\nh: Show this screen");
 				break;
 			case "1":
 				createRecord();
@@ -46,7 +54,10 @@ public class StudentSystem {
 			case "4":
 				removeRecord();
 				break;
-			case "10":
+			case "s":
+				saveStudRecsToFile(file);
+				break;
+			case "q":
 				System.out.println("Quitting...");
 				running = false;
 				break;
@@ -55,6 +66,28 @@ public class StudentSystem {
 				break;
 			}
 		}
+	}
+	
+	
+	public static void saveStudRecsToFile(File file) {
+		try {
+			JAXBContext context = JAXBContext
+					.newInstance(StudRecsWrapper.class);
+			Marshaller m = context.createMarshaller();
+			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			
+			StudRecsWrapper wrapper = new StudRecsWrapper();
+			wrapper.setStudRecs(studRecs);
+			
+			m.marshal(wrapper, file);
+			System.out.println("File saved!");
+		} catch (Exception e) {
+			System.out.println("Cannot save file, check write permissions!");
+		}
+	}
+	
+	public static void loadStudRecsFromFile(File file) {
+		
 	}
 	
 	/**
@@ -95,7 +128,7 @@ public class StudentSystem {
 		studRecs.add(new Student());
 		int i = studRecs.size() - 1;
 		Student tempRecord = studRecs.get(i);
-		System.out.println("Creating Student " + i);
+		System.out.println("Creating Student " + i + " (" + tempRecord.getStudentID() + ")");
 		tempRecord.setFirstName(StudentInput.firstName());
 		tempRecord.setLastName(StudentInput.lastName());
 		tempRecord.setStreetAddress(StudentInput.streetAddress());
@@ -104,7 +137,7 @@ public class StudentSystem {
 		tempRecord.setPostalCode(StudentInput.postalCode());
 		tempRecord.setPhoneNumber(StudentInput.phoneNumber());
 		tempRecord.setBirthDate(StudentInput.birthDate());
-		System.out.println("Student " + i + " Created!");
+		System.out.println("Student " + i + " (" + tempRecord.getStudentID() + ")" + " Created!");
 	}
 	
 	/**
