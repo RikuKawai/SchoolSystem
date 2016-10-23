@@ -57,6 +57,9 @@ public class StudentSystem {
 			case "s":
 				saveStudRecsToFile(file);
 				break;
+			case "l":
+				loadStudRecsFromFile(file);
+				break;
 			case "q":
 				System.out.println("Quitting...");
 				running = false;
@@ -87,7 +90,18 @@ public class StudentSystem {
 	}
 	
 	public static void loadStudRecsFromFile(File file) {
-		
+		try {
+			JAXBContext context = JAXBContext
+					.newInstance(StudRecsWrapper.class);
+			Unmarshaller um = context.createUnmarshaller();
+			
+			StudRecsWrapper wrapper = (StudRecsWrapper) um.unmarshal(file);
+			
+			studRecs.clear();
+			studRecs.addAll(wrapper.getStudRecs());
+		} catch (Exception e) {
+			System.out.println("Cannot load file, does it exist?");
+		}
 	}
 	
 	/**
