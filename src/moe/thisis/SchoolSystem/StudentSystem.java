@@ -17,12 +17,12 @@ public class StudentSystem {
 	 * StudentSystem.java
 	 * Student Database System
 	 * @author Quinlan McNellen
-	 * @version 0.2.1
-	 * @date 10/02/2016
+	 * @version 0.3
+	 * @date 10/23/2016
 	 */
 	static ArrayList<Student> studRecs = new ArrayList<Student>();
 	static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-	static final String VERSION = "0.2";
+	static final String VERSION = "0.3";
 	static File file = new File("studrecs.xml");
 	
 	public static void main(String[] args) throws IOException {
@@ -38,7 +38,7 @@ public class StudentSystem {
 			
 			switch (command.toLowerCase()) {
 			case "h":
-				System.out.println("1: Add new record\n2: Print a record by indice\n3: Print all records\n4: Remove a record by indice\n5: null\n6: null\n7: null\ns: Save Records\n9: null\nq: Quit\nh: Show this screen");
+				System.out.println("1: Add new record\n2: Print a record by indice\n3: Print all records\n4: Remove a record by indice\n5: null\n6: null\n7: null\ns: Save Records\nl: Load Records\nq: Quit\nh: Show this screen");
 				break;
 			case "1":
 				createRecord();
@@ -99,6 +99,7 @@ public class StudentSystem {
 			
 			studRecs.clear();
 			studRecs.addAll(wrapper.getStudRecs());
+			System.out.println("File loaded!");
 		} catch (Exception e) {
 			System.out.println("Cannot load file, does it exist?");
 		}
@@ -112,6 +113,7 @@ public class StudentSystem {
 		try {
 			Student tempRecord = studRecs.get(i);
 			System.out.println("Printing information for student " + i);
+			System.out.println("Student ID: " + tempRecord.getStudentID());
 			System.out.println("First Name: " + tempRecord.getFirstName());
 			System.out.println("Last Name: " + tempRecord.getLastName());
 			System.out.println("Street Address: " + tempRecord.getStreetAddress());
