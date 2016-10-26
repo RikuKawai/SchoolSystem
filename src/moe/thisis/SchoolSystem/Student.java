@@ -7,8 +7,8 @@ public class Student {
 	 * Student.java
 	 * Student Object
 	 * @author Quinlan McNellen
-	 * @version 1.1
-	 * @date 10/13/2016
+	 * @version 1.2
+	 * @date 10/23/2016
 	 */
 	private final StringProperty studentID;
 	private final StringProperty firstName;
