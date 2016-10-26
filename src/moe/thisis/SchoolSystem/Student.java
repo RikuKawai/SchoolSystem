@@ -22,6 +22,9 @@ public class Student {
 	
 	private static int counter = 300000000;
 	
+	/**
+	 * Create a new student when no information is known
+	 */
 	public Student() {
 		this.studentID = new SimpleStringProperty(Integer.toString(counter++));
 		this.firstName = new SimpleStringProperty("");
@@ -34,6 +37,10 @@ public class Student {
 		this.birthDate = new SimpleStringProperty("");
 	}
 	
+	/**
+	 * Create a new student when the Student ID is known
+	 * @param studentID Known Student ID
+	 */
 	public Student(String studentID){
 		this.studentID = new SimpleStringProperty(studentID);
 		this.firstName = new SimpleStringProperty("");

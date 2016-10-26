@@ -17,12 +17,12 @@ public class StudentSystem {
 	 * StudentSystem.java
 	 * Student Database System
 	 * @author Quinlan McNellen
-	 * @version 0.2.1
-	 * @date 10/02/2016
+	 * @version 0.3
+	 * @date 10/26/2016
 	 */
 	static ArrayList<Student> studRecs = new ArrayList<Student>();
 	static BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-	static final String VERSION = "0.2";
+	static final String VERSION = "0.3";
 	static File file = new File("studrecs.xml");
 	
 	public static void main(String[] args) throws IOException {
@@ -72,6 +72,10 @@ public class StudentSystem {
 	}
 	
 	
+	/**
+	 * Save Student data to a file
+	 * @param file File to save
+	 */
 	public static void saveStudRecsToFile(File file) {
 		try {
 			JAXBContext context = JAXBContext
@@ -89,6 +93,10 @@ public class StudentSystem {
 		}
 	}
 	
+	/**
+	 * Load Student data from a file
+	 * @param file File to load
+	 */
 	public static void loadStudRecsFromFile(File file) {
 		try {
 			JAXBContext context = JAXBContext
